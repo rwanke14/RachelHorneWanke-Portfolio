@@ -36,15 +36,30 @@ Edit typed content in:
 
 Images live in `public/images/`.
 
-## Deploy to Vercel (free)
+## Deploy
 
-1. Push this repo to GitHub.
-2. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
-3. Framework preset: **Next.js**. Leave build settings default (`next build`).
-4. Add env var `NEXT_PUBLIC_FORMSPREE_ID` if you use Formspree.
-5. Deploy — you get a free `*.vercel.app` URL.
+### GitHub Pages (current, automatic)
 
-Every push to `main` redeploys automatically.
+Every push to `main` runs `.github/workflows/deploy-pages.yml`, which builds a
+static export (`next build` with `output: "export"`) and publishes it to
+GitHub Pages at:
+
+**https://rwanke14.github.io/reactportfolio**
+
+The workflow sets `NEXT_PUBLIC_BASE_PATH=/reactportfolio` so assets and images
+resolve under the project subpath. If the Pages source ever shows the README
+again, check that repo **Settings → Pages → Source** is set to
+**GitHub Actions**.
+
+### Vercel (optional alternative)
+
+1. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
+2. Framework preset: **Next.js**. Leave build settings default (`next build`).
+3. Add env var `NEXT_PUBLIC_FORMSPREE_ID` if you use Formspree.
+4. Deploy — you get a free `*.vercel.app` URL.
+
+Leave `NEXT_PUBLIC_BASE_PATH` unset on Vercel; the site builds at the domain
+root there.
 
 ### Custom domain (`rachelwanke.com`)
 
