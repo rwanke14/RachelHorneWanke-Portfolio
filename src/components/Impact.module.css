@@ -1,0 +1,49 @@
+.section {
+  background: var(--ink);
+  color: var(--text-on-ink);
+  padding-block: clamp(3rem, 7vw, 4.5rem);
+}
+
+.section :global(.sectionTitle) {
+  color: var(--text-on-ink);
+  margin-bottom: 0.5rem;
+}
+
+.section :global(.sectionLead) {
+  color: var(--text-on-ink-muted);
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stat {
+  padding: 1.1rem 0.25rem;
+  border-top: 1px solid var(--border-ink);
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  letter-spacing: -0.03em;
+  color: var(--accent-bright);
+  line-height: 1;
+  margin-bottom: 0.45rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  color: var(--text-on-ink-muted);
+  font-size: 0.92rem;
+  max-width: 14ch;
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}

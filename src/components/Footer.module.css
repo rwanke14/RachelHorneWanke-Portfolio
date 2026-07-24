@@ -1,0 +1,33 @@
+.footer {
+  background: #0e0618;
+  color: var(--text-on-ink-muted);
+  padding: 1.75rem 0 2.25rem;
+  border-top: 1px solid var(--border-ink);
+  font-size: 0.9rem;
+}
+
+.inner {
+  width: min(100% - 2.5rem, var(--max));
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+}
+
+.links a {
+  color: var(--text-on-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.links a:hover {
+  color: var(--teal-bright);
+}

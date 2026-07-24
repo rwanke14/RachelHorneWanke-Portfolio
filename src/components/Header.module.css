@@ -1,0 +1,157 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: rgba(247, 243, 251, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  width: min(100% - 2.5rem, var(--max));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand:hover {
+  color: var(--teal);
+}
+
+.nav {
+  display: none;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.nav a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+
+.nav a:hover {
+  color: var(--ink);
+}
+
+.cta {
+  display: none;
+  padding: 0.55rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: var(--accent);
+  border-radius: var(--radius);
+  transition:
+    background 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.cta:hover {
+  background: #5b21b6;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.toggle span,
+.toggle span::before,
+.toggle span::after {
+  display: block;
+  width: 1.1rem;
+  height: 2px;
+  background: currentColor;
+  position: relative;
+  transition: transform 0.2s var(--ease);
+}
+
+.toggle span::before,
+.toggle span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.toggle span::before {
+  top: -5px;
+}
+
+.toggle span::after {
+  top: 5px;
+}
+
+.mobile {
+  display: none;
+  position: absolute;
+  inset: var(--header-h) 0 auto;
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.25rem 1.25rem;
+  list-style: none;
+}
+
+.mobileOpen {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.mobile a {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
+
+  .cta {
+    display: inline-flex;
+  }
+
+  .toggle {
+    display: none;
+  }
+
+  .mobile,
+  .mobileOpen {
+    display: none;
+  }
+}
+
+@media (min-width: 980px) {
+  .nav {
+    gap: 1.35rem;
+  }
+}

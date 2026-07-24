@@ -1,0 +1,104 @@
+.section {
+  background: var(--mist);
+}
+
+.layout {
+  display: grid;
+  gap: 3rem;
+}
+
+.list {
+  list-style: none;
+  display: grid;
+  gap: 2rem;
+}
+
+.item {
+  display: grid;
+  gap: 0.75rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--teal);
+}
+
+.role {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.org {
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.period {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--teal);
+  background: var(--teal-dim);
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius);
+  vertical-align: middle;
+}
+
+.highlights {
+  margin-left: 1.1rem;
+  color: var(--text-muted);
+  display: grid;
+  gap: 0.4rem;
+}
+
+.highlights li::marker {
+  color: var(--teal);
+}
+
+.aside {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.asideTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.education {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.education li {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.school {
+  font-weight: 600;
+}
+
+.credential {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.eduPeriod {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1.6fr 0.9fr;
+    gap: 4rem;
+  }
+}

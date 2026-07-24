@@ -1,0 +1,102 @@
+.section {
+  background: var(--ink);
+  color: var(--text-on-ink);
+}
+
+.section :global(.sectionTitle) {
+  color: var(--text-on-ink);
+}
+
+.section :global(.sectionLead) {
+  color: var(--text-on-ink-muted);
+}
+
+.grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.channels {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+}
+
+.channels a {
+  color: var(--teal-bright);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.channels a:hover {
+  text-decoration: underline;
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-muted);
+  margin-bottom: 0.2rem;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--border-ink);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-on-ink);
+  font: inherit;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-on-ink-muted);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.status {
+  font-size: 0.95rem;
+  color: var(--teal-bright);
+}
+
+.error {
+  color: #ff8f8f;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: var(--text-on-ink-muted);
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
