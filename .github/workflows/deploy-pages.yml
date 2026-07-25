@@ -37,7 +37,7 @@ jobs:
         run: npm run build
         env:
           # Project site is served at https://rwanke14.github.io/reactportfolio
-          NEXT_PUBLIC_BASE_PATH: /reactportfolio
+          NEXT_PUBLIC_BASE_PATH: /RachelHorneWanke-portfolio
 
       - name: Disable Jekyll processing
         run: touch out/.nojekyll
