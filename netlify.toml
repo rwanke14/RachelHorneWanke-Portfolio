@@ -1,0 +1,37 @@
+# Netlify config for this Next.js static export portfolio.
+# Publish directory is `out/` because next.config.ts sets `output: "export"`.
+# Do not use @netlify/plugin-nextjs with static export — the CDN serves HTML/CSS/JS directly.
+
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Root deploy (*.netlify.app or custom domain) — leave base path empty.
+  NEXT_PUBLIC_BASE_PATH = ""
+  # Public Formspree form ID (also set in Netlify UI if you prefer secrets there).
+  NEXT_PUBLIC_FORMSPREE_ID = "mbdnqnap"
+  # If Netlify auto-installs the Next.js runtime, skip it for static export.
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+# Pretty URLs already match trailingSlash: true (/services/ → services/index.html).
+# Do NOT add a SPA fallback (/* → /index.html) — it would break multi-page routes.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
