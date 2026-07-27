@@ -9,7 +9,7 @@ const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
 type Status = "idle" | "sending" | "success" | "error";
 
-export function Contact() {
+export function Contact({ showIntro = true }: { showIntro?: boolean }) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -47,14 +47,16 @@ export function Contact() {
   return (
     <section id="contact" className={`section ${styles.section}`}>
       <div className="container">
-        <Reveal>
-          <h2 className="sectionTitle">Contact</h2>
-          <p className="sectionLead">
-            Actively seeking full-time web production roles and freelance site
-            builds, redesigns, and CMS work. Most recently Website Specialist at
-            Centric Software.
-          </p>
-        </Reveal>
+        {showIntro ? (
+          <Reveal>
+            <h2 className="sectionTitle">Contact</h2>
+            <p className="sectionLead">
+              Actively seeking full-time web production roles and freelance /
+              contract engagements — web development, CMS migrations, WordPress
+              & Contentful management, and technical SEO.
+            </p>
+          </Reveal>
+        ) : null}
 
         <div className={styles.grid}>
           <Reveal>
@@ -91,7 +93,16 @@ export function Contact() {
           </Reveal>
 
           <Reveal delay={80}>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form
+              className={styles.form}
+              onSubmit={handleSubmit}
+              action={
+                formspreeId
+                  ? `https://formspree.io/f/${formspreeId}`
+                  : undefined
+              }
+              method="POST"
+            >
               <div className={styles.field}>
                 <label htmlFor="name">Name</label>
                 <input
@@ -131,11 +142,6 @@ export function Contact() {
               >
                 {status === "sending" ? "Sending…" : "Send message"}
               </button>
-              {!formspreeId ? (
-                <p className={styles.note}>
-                  Opens your email client until Formspree is configured.
-                </p>
-              ) : null}
               {status === "success" ? (
                 <p className={styles.status} role="status">
                   Thanks — I&apos;ll get back to you soon.

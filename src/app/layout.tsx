@@ -1,3 +1,5 @@
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import type { Metadata } from "next";
 import { Figtree, Newsreader } from "next/font/google";
 import { site } from "@/content/site";
@@ -47,7 +49,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

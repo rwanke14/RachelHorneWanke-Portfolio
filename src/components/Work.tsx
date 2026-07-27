@@ -12,10 +12,10 @@ const filters: { id: Filter; label: string }[] = [
   { id: "all", label: "All work" },
   { id: "production", label: "Production" },
   { id: "client", label: "Client builds" },
-  { id: "builds", label: "Selected builds" },
+  { id: "builds", label: "Student projects" },
 ];
 
-export function Work() {
+export function Work({ showIntro = true }: { showIntro?: boolean }) {
   const [filter, setFilter] = useState<Filter>("all");
   const [openId, setOpenId] = useState<string | null>("centric");
 
@@ -46,17 +46,25 @@ export function Work() {
   return (
     <section id="work" className={`section ${styles.section}`}>
       <div className={`container ${styles.inner}`}>
-        <Reveal>
-          <h2 className="sectionTitle">Selected work</h2>
-          <p className="sectionLead">
-            Case studies structured like peer portfolios — Overview, Scope,
-            and Impact — with CMS migrations called out. Expand a project to
-            dig in.
-          </p>
-          <p className={styles.hint} aria-hidden="true">
-            ↓ Filter · expand · explore accomplishments
-          </p>
-        </Reveal>
+        {showIntro ? (
+          <Reveal>
+            <h2 className="sectionTitle">Selected work</h2>
+            <p className="sectionLead">
+              Case studies structured like peer portfolios — Overview, Scope,
+              and Impact — with CMS migrations called out. Expand a project to
+              dig in.
+            </p>
+            <p className={styles.hint} aria-hidden="true">
+              ↓ Filter · expand · explore accomplishments
+            </p>
+          </Reveal>
+        ) : (
+          <Reveal>
+            <p className={styles.hint} aria-hidden="true">
+              ↓ Filter · expand · explore accomplishments
+            </p>
+          </Reveal>
+        )}
 
         <Reveal>
           <div
@@ -107,9 +115,14 @@ export function Work() {
                           <div className={styles.cover}>
                             <Image
                               src={item.cover}
-                              alt=""
+                              alt={`${item.org} — ${item.title}`}
                               fill
                               sizes="144px"
+                              style={
+                                item.coverPosition
+                                  ? { objectPosition: item.coverPosition }
+                                  : undefined
+                              }
                             />
                           </div>
                         ) : null}
@@ -212,9 +225,10 @@ export function Work() {
         {builds.length > 0 ? (
           <>
             <Reveal>
-              <h3 className={styles.buildsTitle}>Selected builds</h3>
+              <h3 className={styles.buildsTitle}>GitHub portfolio samples</h3>
               <p className={styles.buildsLead}>
-                Hover a build, then open it on GitHub.
+                Student and side projects that show full-stack range. Live demos
+                are retired — open the repo to browse the codebase.
               </p>
             </Reveal>
             <div className={styles.builds}>
@@ -236,8 +250,8 @@ export function Work() {
 }
 
 function BuildCard({ item }: { item: WorkItem }) {
-  const body = (
-    <>
+  return (
+    <article className={styles.build}>
       {item.image ? (
         <div className={styles.thumb}>
           <Image
@@ -246,9 +260,6 @@ function BuildCard({ item }: { item: WorkItem }) {
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
           />
-          <div className={styles.overlay}>
-            <span>{item.prompt ?? "Open project"}</span>
-          </div>
         </div>
       ) : null}
       <div className={styles.buildBody}>
@@ -257,24 +268,25 @@ function BuildCard({ item }: { item: WorkItem }) {
         </p>
         <h4 className={styles.buildTitle}>{item.title}</h4>
         <p className={styles.buildOutcome}>{item.overview}</p>
+        <ul className={styles.buildStack} aria-label="Technologies used">
+          {item.stack.slice(0, 4).map((tech) => (
+            <li key={tech}>{tech}</li>
+          ))}
+        </ul>
+        {item.href ? (
+          <a
+            className={styles.githubLink}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {item.prompt ?? "View on GitHub"}
+            <span aria-hidden="true"> →</span>
+          </a>
+        ) : null}
       </div>
-    </>
+    </article>
   );
-
-  if (item.href) {
-    return (
-      <a
-        className={styles.build}
-        href={item.href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {body}
-      </a>
-    );
-  }
-
-  return <article className={styles.build}>{body}</article>;
 }
 
 function Chevron() {

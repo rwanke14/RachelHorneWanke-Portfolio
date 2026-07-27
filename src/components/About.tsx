@@ -3,14 +3,20 @@ import { about } from "@/content/site";
 import { Reveal } from "./Reveal";
 import styles from "./About.module.css";
 
-export function About() {
+type AboutProps = {
+  showIntro?: boolean;
+};
+
+export function About({ showIntro = true }: AboutProps) {
   return (
     <section id="about" className={`section ${styles.section}`}>
       <div className="container">
-        <Reveal>
-          <h2 className="sectionTitle">{about.heading}</h2>
-          <p className="sectionLead">{about.lead}</p>
-        </Reveal>
+        {showIntro ? (
+          <Reveal>
+            <h2 className="sectionTitle">{about.heading}</h2>
+            <p className="sectionLead">{about.lead}</p>
+          </Reveal>
+        ) : null}
 
         <div className={styles.grid}>
           <Reveal>

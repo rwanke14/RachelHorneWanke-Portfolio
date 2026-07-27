@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import Link from "next/link";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -11,6 +12,11 @@ export function Footer() {
           © {year} {site.name}
         </p>
         <ul className={styles.links}>
+          {site.nav.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href}>{item.label}</Link>
+            </li>
+          ))}
           <li>
             <a
               href={site.links.linkedin}
@@ -28,9 +34,6 @@ export function Footer() {
             >
               GitHub
             </a>
-          </li>
-          <li>
-            <a href={`mailto:${site.email}`}>Email</a>
           </li>
         </ul>
       </div>

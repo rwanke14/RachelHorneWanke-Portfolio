@@ -3,88 +3,95 @@
   position: relative;
 }
 
-.grid {
+.list {
   display: grid;
-  gap: 1.25rem;
+  gap: 1.15rem;
 }
 
 .card {
   position: relative;
-  padding: 1.5rem 1.4rem 1.6rem;
-  background: rgba(255, 255, 255, 0.75);
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.5rem 1.4rem 1.65rem;
+  background: rgba(255, 255, 255, 0.78);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) + 6px);
-  display: grid;
-  gap: 0.75rem;
   transition:
     transform 0.3s var(--ease),
     border-color 0.3s var(--ease),
     box-shadow 0.3s var(--ease);
-  overflow: hidden;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 3px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.25s var(--ease);
 }
 
 .card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: rgba(109, 40, 217, 0.35);
   box-shadow: var(--shadow);
 }
 
-.card:hover::before {
-  opacity: 1;
-}
-
 .featured {
-  border-color: rgba(109, 40, 217, 0.35);
+  border-color: rgba(109, 40, 217, 0.4);
   background:
     linear-gradient(
-      135deg,
+      120deg,
       rgba(196, 181, 253, 0.22),
-      rgba(255, 255, 255, 0.85) 45%
+      rgba(255, 255, 255, 0.88) 42%
     );
 }
 
-.featured::before {
-  opacity: 1;
+.header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+}
+
+.number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
 }
 
 .badge {
   display: inline-flex;
-  width: fit-content;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--accent);
-  background: var(--accent-dim);
-  padding: 0.25rem 0.55rem;
-  border-radius: var(--radius);
+  color: #fff;
+  background: var(--accent);
+  padding: 0.22rem 0.5rem;
+  border-radius: 999px;
 }
 
 .title {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink-soft);
 }
 
 .blurb {
   color: var(--text-muted);
   font-size: 0.98rem;
+  max-width: 52rem;
 }
 
 .points {
   list-style: none;
   display: grid;
   gap: 0.45rem;
-  margin-top: 0.35rem;
+  margin-top: 0.25rem;
 }
 
 .points li {
@@ -106,9 +113,36 @@
   background: var(--accent);
 }
 
-@media (min-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.35rem;
+.ctaBand {
+  margin-top: 2.75rem;
+  padding: 1.5rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 6px);
+  background: rgba(255, 255, 255, 0.7);
+  display: grid;
+  gap: 1rem;
+}
+
+.ctaBand p {
+  color: var(--text-muted);
+  max-width: 36rem;
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (min-width: 800px) {
+  .card {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 1.5rem 2rem;
+    align-items: start;
+    padding: 1.75rem 1.75rem 1.85rem;
+  }
+
+  .points {
+    margin-top: 0;
   }
 }

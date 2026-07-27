@@ -2,7 +2,7 @@ export const site = {
   name: "Rachel Wanke",
   title: "Rachel Wanke — Website Specialist & Web Producer",
   description:
-    "Website specialist and web producer specializing in CMS migrations, site modernization, SEO, and production-ready web builds. Available for full-time roles and freelance projects.",
+    "Website specialist and contractor offering web development, CMS migration, WordPress & Contentful management, technical SEO, and tech stack optimization.",
   tagline: "CMS migrations · Web production · SEO",
   summary:
     "I modernize websites — CMS migrations, production builds, and marketing sites that stay healthy across locales and launches. Most recently Website Specialist at Centric Software.",
@@ -15,12 +15,10 @@ export const site = {
     resume: "https://www.linkedin.com/in/rachel-wanke",
   },
   nav: [
-    { label: "Services", href: "#services" },
-    { label: "Work", href: "#work" },
-    { label: "Process", href: "#process" },
-    { label: "Experience", href: "#experience" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Services", href: "/services" },
+    { label: "Work", href: "/work" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ],
 } as const;
 
@@ -37,7 +35,7 @@ export const about = {
   capabilities: [
     {
       label: "Front end",
-      items: ["React", "Next.js", "JavaScript", "HTML / CSS / SCSS", "Jekyll"],
+      items: ["React", "Next.js", "JavaScript", "HTML / CSS / SCSS", "Jekyll", "PHP", "TypeScript"],
     },
     {
       label: "CMS & migrations",
@@ -50,47 +48,89 @@ export const about = {
         "Google Tag Manager",
         "Localization",
         "Landing pages",
+        "SEO Audits",
+        "Website Optimization",
+        "Website Refresh",
       ],
     },
     {
       label: "Backend & infra",
-      items: ["Node.js", "AWS Lambda", "API Gateway", "MySQL", "MongoDB"],
+      items: ["Node.js", "AWS", "GraphQL", "RESTful APIs", "AI Automation", "MySQL", "MongoDB"],
     },
   ],
 } as const;
 
+/** Contractor offerings for companies hiring freelance / contract support. */
 export const services = [
   {
-    id: "migration",
-    title: "CMS migrations & modernization",
+    id: "web-development",
+    number: "01",
+    title: "Web Development",
+    subtitle: "Front end & back end",
     blurb:
-      "Plan and execute platform moves — WordPress to Contentful, legacy CMS to cloud, dual-stack cutovers with reverse proxies so traffic never drops.",
+      "Full-stack builds and production work — React/Next.js front ends, Node APIs, and the day-to-day engineering that keeps marketing and product sites shipping.",
     points: [
-      "Migration architecture & cutover plans",
-      "Content modeling & publisher handoff",
-      "SEO preservation through the move",
+      "React, Next.js, HTML/CSS/SCSS, and JavaScript UI builds",
+      "Node.js APIs, Express, and database-backed features",
+      "Figma-to-production components and landing pages",
+      "Sprint collaboration, QA, and stakeholder delivery",
     ],
   },
   {
-    id: "production",
-    title: "Web production & landing pages",
+    id: "cms-migration",
+    number: "02",
+    title: "CMS Migration Strategy & Development",
+    subtitle: "Plan, cut over, and ship",
     blurb:
-      "Figma-to-live builds, campaign pages, and day-to-day production for marketing teams that need reliable shipping cadence.",
+      "End-to-end platform moves with a cutover plan that protects live traffic — from content modeling through dual-stack routing and publisher handoff.",
     points: [
-      "Component & page builds",
-      "GTM / tracking instrumentation",
-      "Sprint ownership & QA",
+      "WordPress → Contentful (and similar) migration architecture",
+      "Zero-downtime cutovers with reverse proxies (e.g. AWS Lambda / API Gateway)",
+      "Content modeling, redirects, and SEO preservation",
+      "Documentation so your team owns the new stack",
+    ],
+    featured: true,
+  },
+  {
+    id: "cms-management",
+    number: "03",
+    title: "CMS Management",
+    subtitle: "WordPress or Contentful",
+    blurb:
+      "Ongoing CMS operations for marketing teams — publishing workflows, component upkeep, and reliable day-to-day management on WordPress or Contentful.",
+    points: [
+      "WordPress / WP Engine site operations and theme or block work",
+      "Contentful models, entries, and publisher enablement",
+      "Page builds, content updates, and release cadence",
+      "Governance, QA, and handoff for content owners",
     ],
   },
   {
-    id: "seo",
-    title: "Technical SEO & site health",
+    id: "technical-seo",
+    number: "04",
+    title: "Technical SEO Resolution",
+    subtitle: "Find it · fix it · verify it",
     blurb:
-      "Fix what blocks discovery — 404s, metadata, localization, Core Web Vitals — so redesigned sites actually perform.",
+      "Resolve the technical issues that block discovery — crawl/index problems, broken routes, metadata, localization, and Core Web Vitals — so content can rank.",
     points: [
-      "Technical audits & remediation",
-      "Multilingual / localized SEO",
-      "Analytics & tag management",
+      "Technical audits and remediation roadmaps",
+      "404s, redirects, metadata, and structured data fixes",
+      "Multilingual / localized SEO health",
+      "GTM, analytics, and tag-layer cleanup",
+    ],
+  },
+  {
+    id: "tech-stack",
+    number: "05",
+    title: "Tech Stack Optimization",
+    subtitle: "Performance · architecture · maintainability",
+    blurb:
+      "Tighten the stack your site runs on — hosting, CMS, build pipeline, and front-end architecture — so the site is faster, cleaner, and easier to maintain.",
+    points: [
+      "Stack assessment (CMS, hosting, build, CDN)",
+      "Performance and Core Web Vitals improvements",
+      "Modernization paths (Jekyll/legacy → Next.js, headless CMS)",
+      "Developer workflow, docs, and maintainability upgrades",
     ],
   },
 ] as const;
@@ -123,8 +163,28 @@ export const processSteps = [
 ] as const;
 
 export const impactStats = [
-  { value: 12, suffix: "+", label: "Language locales supported" },
-  { value: 3, suffix: "", label: "Major CMS / platform migrations" },
-  { value: 2, suffix: "", label: "Enterprise marketing sites delivered" },
-  { value: 1, suffix: "", label: "National nonprofit redesign in flight" },
+  {
+    value: 12,
+    suffix: "+",
+    label: "Language locales supported",
+    icon: "globe",
+  },
+  {
+    value: 2,
+    suffix: "",
+    label: "CMS migrations managed",
+    icon: "migrate",
+  },
+  {
+    value: 2,
+    suffix: "",
+    label: "Enterprise marketing sites maintained",
+    icon: "building",
+  },
+  {
+    value: 1,
+    suffix: "",
+    label: "National nonprofit redesign in flight",
+    icon: "flag",
+  },
 ] as const;

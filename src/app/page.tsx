@@ -1,29 +1,15 @@
-import { About } from "@/components/About";
-import { Contact } from "@/components/Contact";
-import { Experience } from "@/components/Experience";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { FeaturedWork } from "@/components/FeaturedWork";
 import { Hero } from "@/components/Hero";
 import { Impact } from "@/components/Impact";
-import { Process } from "@/components/Process";
-import { Services } from "@/components/Services";
-import { Work } from "@/components/Work";
+import { ServicesPreview } from "@/components/ServicesPreview";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <Services />
-        <Impact />
-        <Work />
-        <Process />
-        <Experience />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <Impact />
+      <FeaturedWork />
+      <ServicesPreview />
     </>
   );
 }

@@ -49,6 +49,10 @@
   color: var(--ink);
 }
 
+.nav a.active {
+  color: var(--accent);
+}
+
 .cta {
   display: none;
   padding: 0.55rem 0.95rem;

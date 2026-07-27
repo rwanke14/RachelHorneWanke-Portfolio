@@ -1,12 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 import { site } from "@/content/site";
 import styles from "./Hero.module.css";
 
 export function Hero() {
   return (
-    <section id="top" className={styles.hero} aria-label="Introduction">
+    <section className={styles.hero} aria-label="Introduction">
       <div className={styles.media} aria-hidden="true">
         <Image
+          className={styles.mediaImage}
           src="/images/hero-art.jpg"
           alt=""
           fill
@@ -15,23 +17,23 @@ export function Hero() {
         />
       </div>
       <div className={styles.atmosphere} aria-hidden="true" />
-      <div className={styles.band} aria-hidden="true" />
+      <div className={styles.orb} aria-hidden="true" />
       <div className={styles.content}>
         <p className={styles.availability}>{site.availability}</p>
         <h1 className={styles.brand}>{site.name}</h1>
         <p className={styles.tagline}>{site.tagline}</p>
         <p className={styles.summary}>{site.summary}</p>
         <div className={styles.actions}>
-          <a className="btn btnPrimary" href="#work">
-            View work
-          </a>
-          <a className="btn btnGhost" href="#services">
-            CMS migrations
-          </a>
-          <a className="btn btnGhost" href="#contact">
-            Get in touch
-          </a>
+          <Link className="btn btnPrimary" href="/work">
+            View selected work
+          </Link>
+          <Link className="btn btnGhost" href="/contact">
+            Hire me
+          </Link>
         </div>
+        <Link className={styles.secondaryLink} href="/services">
+          Or browse website services and support →
+        </Link>
       </div>
     </section>
   );

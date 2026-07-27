@@ -20,6 +20,8 @@ export type WorkItem = {
   migration?: boolean;
   image?: string;
   cover?: string;
+  /** CSS object-position for crop-friendly action photos */
+  coverPosition?: string;
   href?: string;
   prompt?: string;
 };
@@ -53,13 +55,14 @@ export const work: WorkItem[] = [
     featured: true,
     category: "production",
     migration: true,
-    cover: "/images/case-migration.jpg",
+    cover: "/images/case-centric.jpg",
+    coverPosition: "center 30%",
     prompt: "Explore the migration story",
   },
   {
     id: "nscar",
     title: "National society website redesign",
-    org: "NSCAR",
+    org: "N.S.C.A.R.",
     role: "Senior Webmaster (Volunteer)",
     overview:
       "Bring a national nonprofit website up to modern standards — readability, brand clarity, SEO, and a path off desktop-bound infrastructure.",
@@ -76,7 +79,8 @@ export const work: WorkItem[] = [
     featured: true,
     category: "production",
     migration: true,
-    cover: "/images/case-mesh.jpg",
+    cover: "/images/case-nscar.jpg",
+    coverPosition: "center 40%",
     prompt: "See the redesign approach",
   },
   {
@@ -98,7 +102,8 @@ export const work: WorkItem[] = [
     ],
     featured: true,
     category: "production",
-    cover: "/images/case-gradient.jpg",
+    cover: "/images/case-circleci.jpg",
+    coverPosition: "center 35%",
     prompt: "Open the production details",
   },
   {
@@ -121,6 +126,7 @@ export const work: WorkItem[] = [
     featured: true,
     category: "client",
     cover: "/images/case-wedding.jpg",
+    coverPosition: "center 45%",
     // Swap in the live wedding URL when ready:
     // href: "https://your-sisters-wedding-site.com",
     prompt: "Open the wedding build story",
@@ -128,14 +134,14 @@ export const work: WorkItem[] = [
   {
     id: "mindflo",
     title: "Mindflo",
-    org: "Personal build",
+    org: "Student project",
     role: "Full-stack developer",
     overview:
-      "Self-care web app for tracking wellness habits with a React front end and Node API.",
+      "Self-care tracker for logging a wellness journey — React UI with a Node/Express API, MongoDB/Mongoose persistence, and both internal and external APIs.",
     scope: "React UI, Express API, MongoDB persistence, and habit-tracking flows.",
     outcome:
       "A full-stack product demo spanning auth-adjacent patterns, CRUD, and polished front-end UX.",
-    stack: ["React", "Node.js", "MongoDB", "Express"],
+    stack: ["React", "Node.js", "MongoDB", "Express", "Mongoose"],
     metrics: [
       { value: "Full stack", label: "Build type" },
       { value: "MongoDB", label: "Data layer" },
@@ -149,10 +155,10 @@ export const work: WorkItem[] = [
   {
     id: "bechdel",
     title: "Bechdel Billboard",
-    org: "Personal build",
+    org: "Student project",
     role: "Backend lead",
     overview:
-      "Movie database and blog for films that pass the Bechdel test — accounts, search, and discussion.",
+      "Movie database of films that pass the Bechdel Test, plus a community blog — Node/Express with MySQL/Sequelize, auth, search, and user interaction.",
     scope:
       "Node routes, MySQL/Sequelize models, auth, and front-end bug fixes across the CRUD app.",
     outcome:
@@ -171,10 +177,10 @@ export const work: WorkItem[] = [
   {
     id: "tarot",
     title: "Ace of Pentacles",
-    org: "Personal build",
+    org: "Student project",
     role: "Team lead & design",
     overview:
-      "Tarot and horoscope site powered by external APIs — led design and project management.",
+      "Tarot site with two reading types and daily horoscopes — HTML/CSS/JS with jQuery and external APIs for cards and astrology data.",
     scope:
       "Team leadership, visual design, JavaScript interactions, and API-driven card/horoscope pages.",
     outcome:
