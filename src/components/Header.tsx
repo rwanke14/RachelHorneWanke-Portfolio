@@ -38,7 +38,7 @@ export function Header() {
             })}
           </ul>
         </nav>
-        <Link className={styles.cta} href="/contact">
+        <Link className={styles.cta} href="/services">
           Hire me
         </Link>
         <button
@@ -64,7 +64,7 @@ export function Header() {
           </li>
         ))}
         <li>
-          <Link href="/contact" onClick={() => setOpen(false)}>
+          <Link href="/services" onClick={() => setOpen(false)}>
             Hire me
           </Link>
         </li>

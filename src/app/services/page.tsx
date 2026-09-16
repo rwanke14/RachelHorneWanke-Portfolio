@@ -71,8 +71,9 @@ export default function ServicesPage() {
               Who I work with
             </h2>
             <p className="sectionLead">
-              Teams that already have a website and need experienced help to
-              keep it moving.
+              Organizations that need experienced web help — whether you&apos;re
+              improving what you already have, launching something new, or need
+              extra technical capacity.
             </p>
           </Reveal>
           <div className={styles.audienceGrid}>

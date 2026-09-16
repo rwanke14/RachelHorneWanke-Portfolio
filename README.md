@@ -17,14 +17,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Optional contact form (Formspree):
-
-```bash
-cp .env.example .env.local
-# set NEXT_PUBLIC_FORMSPREE_ID=your_form_id
-```
-
-Without Formspree, the contact form opens a `mailto:` draft.
+The contact form uses [Netlify Forms](https://docs.netlify.com/manage/forms/setup/),
+which is handled by Netlify's infrastructure at deploy time. No API keys or env
+vars are needed. Submissions only work on a Netlify deploy — locally and on
+GitHub Pages the POST has nowhere to go, so the form reports its error state.
 
 ## Content
 
@@ -55,8 +51,10 @@ again, check that repo **Settings → Pages → Source** is set to
 
 1. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
 2. Framework preset: **Next.js**. Leave build settings default (`next build`).
-3. Add env var `NEXT_PUBLIC_FORMSPREE_ID` if you use Formspree.
-4. Deploy — you get a free `*.vercel.app` URL.
+3. Deploy — you get a free `*.vercel.app` URL.
+
+Note: the contact form depends on Netlify Forms, so it will not collect
+submissions on Vercel or GitHub Pages.
 
 Leave `NEXT_PUBLIC_BASE_PATH` unset on Vercel; the site builds at the domain
 root there.

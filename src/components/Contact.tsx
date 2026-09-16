@@ -5,7 +5,7 @@ import { inquiryBudgets, inquiryTopics, site } from "@/content/site";
 import { Reveal } from "./Reveal";
 import styles from "./Contact.module.css";
 
-const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+const formName = "contact";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -14,30 +14,26 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "sending") return;
+
     const form = event.currentTarget;
     const data = new FormData(form);
+    // Netlify identifies the form by this value in the payload, not by markup.
+    data.set("form-name", formName);
 
-    if (!formspreeId) {
-      const name = String(data.get("name") || "");
-      const email = String(data.get("email") || "");
-      const company = String(data.get("company") || "");
-      const topic = String(data.get("topic") || "");
-      const budget = String(data.get("budget") || "");
-      const message = String(data.get("message") || "");
-      const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
-      const body = encodeURIComponent(
-        `${message}\n\nCompany / Organization: ${company}\nWhat I can help with: ${topic}\nApproximate project budget: ${budget}\n\n— ${name}\n${email}`,
-      );
-      window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
-      return;
+    const body = new URLSearchParams();
+    for (const [key, value] of data.entries()) {
+      if (typeof value === "string") body.append(key, value);
     }
 
     setStatus("sending");
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      // Netlify accepts form posts on any path in the deploy; posting to the
+      // current page keeps the no-JS fallback and this request identical.
+      const response = await fetch(window.location.pathname, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
       });
       if (!response.ok) throw new Error("Request failed");
       setStatus("success");
@@ -99,13 +95,18 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
             <form
               className={styles.form}
               onSubmit={handleSubmit}
-              action={
-                formspreeId
-                  ? `https://formspree.io/f/${formspreeId}`
-                  : undefined
-              }
+              name={formName}
               method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
             >
+              <input type="hidden" name="form-name" defaultValue={formName} />
+              <p className={styles.honeypot} aria-hidden="true">
+                <label>
+                  Don&apos;t fill this out if you&apos;re human:{" "}
+                  <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                </label>
+              </p>
               <div className={styles.field}>
                 <label htmlFor="name">Name</label>
                 <input
@@ -113,6 +114,7 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
                   name="name"
                   type="text"
                   required
+                  maxLength={100}
                   autoComplete="name"
                   placeholder="Your name"
                 />
@@ -124,6 +126,7 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
                   name="email"
                   type="email"
                   required
+                  maxLength={150}
                   autoComplete="email"
                   placeholder="you@company.com"
                 />
@@ -134,6 +137,7 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
                   id="company"
                   name="company"
                   type="text"
+                  maxLength={120}
                   autoComplete="organization"
                   placeholder="Optional"
                 />
@@ -170,6 +174,8 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
                   id="message"
                   name="message"
                   required
+                  minLength={10}
+                  maxLength={2000}
                   rows={5}
                   placeholder="Role details, site URL, timeline, or the problem you’re seeing"
                 />
@@ -183,7 +189,8 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
               </button>
               {status === "success" ? (
                 <p className={styles.status} role="status">
-                  Thanks — I&apos;ll get back to you soon.
+                  Thanks — your message is on its way. I&apos;ll get back to you
+                  as soon as I can.
                 </p>
               ) : null}
               {status === "error" ? (

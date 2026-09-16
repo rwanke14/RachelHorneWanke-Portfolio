@@ -10,8 +10,6 @@
   NODE_VERSION = "22"
   # Root deploy (*.netlify.app or custom domain) — leave base path empty.
   NEXT_PUBLIC_BASE_PATH = ""
-  # Public Formspree form ID (also set in Netlify UI if you prefer secrets there).
-  NEXT_PUBLIC_FORMSPREE_ID = "mbdnqnap"
   # If Netlify auto-installs the Next.js runtime, skip it for static export.
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 

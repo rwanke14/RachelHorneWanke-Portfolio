@@ -100,6 +100,11 @@
   border-color: transparent;
 }
 
+/* Netlify's spam trap: hidden from people and assistive tech, still submitted. */
+.honeypot {
+  display: none;
+}
+
 .status {
   font-size: 0.95rem;
   color: var(--teal-bright);
