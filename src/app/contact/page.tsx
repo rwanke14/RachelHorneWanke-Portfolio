@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
 import { Contact } from "@/components/Contact";
 import { PageBanner } from "@/components/PageBanner";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact Rachel Wanke about full-time web production roles or freelance contract work — CMS migrations, WordPress, Contentful, and technical SEO.",
-};
+export const metadata = pageMetadata(
+  "Contact",
+  "Contact Rachel Wanke about a full-time web platform role or a freelance project — WordPress, CMS migrations, technical SEO, landing pages, and ongoing website support.",
+);
 
 export default function ContactPage() {
   return (
@@ -14,7 +13,7 @@ export default function ContactPage() {
       <PageBanner
         eyebrow="Let's talk"
         title="Contact"
-        lead="Actively seeking full-time web production roles and freelance / contract engagements for companies that need CMS, SEO, and production support."
+        lead="Tell me about the role or the website problem. I’m open to senior full-time opportunities and select freelance or contract work."
       />
       <Contact showIntro={false} />
     </>

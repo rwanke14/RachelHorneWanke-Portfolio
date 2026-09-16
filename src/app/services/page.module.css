@@ -1,0 +1,26 @@
+.mist {
+  background: var(--mist);
+}
+
+.paper {
+  background: var(--paper);
+}
+
+.packageGrid,
+.audienceGrid {
+  display: grid;
+  gap: 1.15rem;
+}
+
+@media (min-width: 700px) {
+  .packageGrid,
+  .audienceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .audienceGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

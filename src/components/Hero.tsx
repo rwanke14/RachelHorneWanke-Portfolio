@@ -19,21 +19,19 @@ export function Hero() {
       <div className={styles.atmosphere} aria-hidden="true" />
       <div className={styles.orb} aria-hidden="true" />
       <div className={styles.content}>
-        <p className={styles.availability}>{site.availability}</p>
+        <p className={styles.eyebrow}>{site.tagline}</p>
         <h1 className={styles.brand}>{site.name}</h1>
-        <p className={styles.tagline}>{site.tagline}</p>
         <p className={styles.summary}>{site.summary}</p>
+        <p className={styles.positioning}>{site.positioning}</p>
         <div className={styles.actions}>
           <Link className="btn btnPrimary" href="/work">
-            View selected work
+            View My Work
           </Link>
-          <Link className="btn btnGhost" href="/contact">
-            Hire me
+          <Link className="btn btnGhost" href="/services">
+            Hire Me for a Project
           </Link>
         </div>
-        <Link className={styles.secondaryLink} href="/services">
-          Or browse website services and support →
-        </Link>
+        <p className={styles.availability}>{site.availability}</p>
       </div>
     </section>
   );

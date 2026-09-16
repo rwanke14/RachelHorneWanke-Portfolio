@@ -76,10 +76,20 @@
   border-color: var(--accent);
 }
 
+.group {
+  margin-bottom: 3.25rem;
+}
+
+.groupMuted {
+  padding: 1.25rem 1.1rem 1.5rem;
+  border-radius: calc(var(--radius) + 8px);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px dashed rgba(42, 21, 69, 0.12);
+}
+
 .featured {
   display: grid;
   gap: 1rem;
-  margin-bottom: 3.25rem;
 }
 
 .case {
@@ -126,6 +136,10 @@
   gap: 1rem;
   align-items: center;
   padding: 1rem 0 1rem 1rem;
+}
+
+.caseVisualPlain {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .cover {
@@ -347,13 +361,18 @@
   }
 }
 
-.buildsTitle {
+.groupTitle {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
   margin-bottom: 0.35rem;
 }
 
-.buildsLead {
+.groupMuted .groupTitle {
+  font-size: 1.35rem;
+  color: var(--ink-soft);
+}
+
+.groupLead {
   color: var(--text-muted);
   font-size: 0.95rem;
   margin-bottom: 1.5rem;
@@ -468,6 +487,10 @@
   .caseVisual {
     grid-template-columns: 9rem minmax(0, 1fr);
     padding: 1.15rem 0 1.15rem 1.15rem;
+  }
+
+  .caseVisualPlain {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .cover {

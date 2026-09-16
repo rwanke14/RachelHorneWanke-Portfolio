@@ -2,11 +2,14 @@ export const site = {
   name: "Rachel Wanke",
   title: "Rachel Wanke — Website Specialist & Web Producer",
   description:
-    "Website specialist and contractor offering web development, CMS migration, WordPress & Contentful management, technical SEO, and tech stack optimization.",
-  tagline: "CMS migrations · Web production · SEO",
+    "Website specialist and web producer offering senior-level platform work plus freelance web development, WordPress support, CMS consulting, technical SEO, and website maintenance.",
+  tagline: "Web Development · CMS · Technical SEO · Ongoing Support",
   summary:
-    "I modernize websites — CMS migrations, production builds, and marketing sites that stay healthy across locales and launches. Most recently Website Specialist at Centric Software.",
-  availability: "Actively seeking full-time roles & freelance builds",
+    "I help marketing teams, nonprofits, and growing organizations build, fix, and improve their websites—from WordPress support and technical SEO to CMS migrations and modern web development.",
+  positioning:
+    "Most recently Website Specialist at Centric Software, with prior web production at CircleCI and ongoing nonprofit webmaster work — senior-level CMS, SEO, and digital experience delivery.",
+  availability:
+    "Available for full-time roles · contract projects · ongoing web support",
   email: "rkhorne09@gmail.com",
   location: "Arlington, VA",
   links: {
@@ -15,8 +18,8 @@ export const site = {
     resume: "https://www.linkedin.com/in/rachel-wanke",
   },
   nav: [
-    { label: "Services", href: "/services" },
     { label: "Work", href: "/work" },
+    { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
@@ -30,7 +33,7 @@ export const about = {
     "Most recently I was a Website Specialist on Centric Software's Digital Marketing team, where I oversaw website infrastructure, guided developers through sprint delivery, and turned stakeholder requests into production-ready builds — CMS modernization, Figma-to-live page work, technical SEO, and keeping a global marketing site healthy across locales.",
     "At Centric I helped complete a WordPress → Contentful migration and stack upgrade, including an AWS Lambda / API Gateway reverse proxy so Netlify and WP Engine could share traffic during cutover, plus Google Tag Manager instrumentation, localization across 12+ languages, and documentation so content owners could publish with confidence.",
     "I continue to serve as Senior Webmaster for the National Society of the Children of the American Revolution, redesigning the national website for modern design standards and stronger SEO, and migrating their iMIS platform from desktop toward the cloud.",
-    "Earlier, I was a Web Optimization Coordinator at CircleCI — building landing pages in Jekyll and Next.js, publishing through Contentful, and supporting go-to-market launches with production and SEO work. I bring full-stack training (React, Next.js, Node, SQL/Mongo) and earlier careers in legal and nonprofit operations to every project: clear architecture, measurable SEO, and sites teams can actually maintain. I'm currently open to full-time web production roles and freelance site work.",
+    "Earlier, I was a Web Optimization Coordinator at CircleCI — building landing pages in Jekyll and Next.js, publishing through Contentful, and supporting go-to-market launches with production and SEO work. I bring full-stack training (React, Next.js, Node, SQL/Mongo) and earlier careers in legal and nonprofit operations to every project: clear architecture, measurable SEO, and sites teams can actually maintain. I'm currently open to senior web platform, digital experience, and web production roles, as well as select freelance and contract projects involving development, CMS work, technical SEO, and website optimization.",
   ],
   capabilities: [
     {
@@ -60,7 +63,94 @@ export const about = {
   ],
 } as const;
 
-/** Contractor offerings for companies hiring freelance / contract support. */
+export const servicePackages = [
+  {
+    id: "fix-tuneup",
+    title: "Website Fix & Tune-Up",
+    description:
+      "For websites that are broken, outdated, slow, or just need some attention. I'll diagnose the problem, identify priorities, and fix the issues we agree on.",
+    pricing: "Starting at $250",
+  },
+  {
+    id: "technical-seo",
+    title: "Technical SEO Cleanup",
+    description:
+      "Technical SEO support including broken links, redirects, indexing issues, metadata, schema, international SEO, and other problems affecting search visibility.",
+    pricing: "Starting at $350",
+  },
+  {
+    id: "landing-page",
+    title: "Landing Page Development",
+    description:
+      "Responsive landing page implementation for campaigns, marketing initiatives, product launches, or new content.",
+    pricing: "Starting at $500",
+  },
+  {
+    id: "ongoing-support",
+    title: "Ongoing Website Support",
+    description:
+      "Flexible support for organizations that need someone to handle updates, troubleshooting, publishing, QA, technical maintenance, and ongoing improvements.",
+    pricing: "Monthly or hourly support available",
+  },
+  {
+    id: "cms-consulting",
+    title: "Website & CMS Consulting",
+    description:
+      "Strategic help with CMS selection, website architecture, migrations, rebuild decisions, technical requirements, and platform planning.",
+    pricing: "Hourly or project-based",
+  },
+] as const;
+
+export const audiences = [
+  {
+    id: "marketing",
+    title: "Marketing Teams",
+    description:
+      "Extra development and CMS capacity for launches, campaigns, migrations, and production backlogs.",
+  },
+  {
+    id: "small-business",
+    title: "Small Businesses",
+    description:
+      "Professional web support without needing to retain a large agency.",
+  },
+  {
+    id: "nonprofit",
+    title: "Nonprofits & Associations",
+    description:
+      "Website modernization, content organization, SEO, CMS support, and ongoing maintenance.",
+  },
+  {
+    id: "agencies",
+    title: "Agencies",
+    description:
+      "Overflow or white-label support for development, CMS, technical SEO, website production, and troubleshooting.",
+  },
+] as const;
+
+export const inquiryTopics = [
+  "Website fix or troubleshooting",
+  "WordPress support",
+  "Technical SEO",
+  "New website or landing page",
+  "CMS migration",
+  "Ongoing website support",
+  "Consulting",
+  "Full-time opportunity",
+  "Other",
+] as const;
+
+export const inquiryBudgets = [
+  "Under $500",
+  "$500–$1,000",
+  "$1,000–$2,500",
+  "$2,500–$5,000",
+  "$5,000+",
+  "Not sure yet",
+  "Not applicable / full-time opportunity",
+] as const;
+
+/** Larger technical capabilities demonstrated in professional work. */
 export const services = [
   {
     id: "web-development",
@@ -133,6 +223,22 @@ export const services = [
       "Developer workflow, docs, and maintainability upgrades",
     ],
   },
+] as const;
+
+export const technicalCapabilities = [
+  "CMS migration strategy and implementation",
+  "WordPress",
+  "Contentful",
+  "Next.js",
+  "CMS architecture",
+  "Web production",
+  "Technical SEO",
+  "Analytics and GTM",
+  "Website performance",
+  "Integrations",
+  "AWS / web infrastructure",
+  "Content migrations",
+  "Multilingual / global websites",
 ] as const;
 
 export const processSteps = [

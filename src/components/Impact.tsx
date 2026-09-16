@@ -4,37 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { impactStats } from "@/content/site";
 import styles from "./Impact.module.css";
 
-function useCountUp(target: number, active: boolean, duration = 1100) {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!active) return;
-
-    let frame = 0;
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReduced) {
-      frame = requestAnimationFrame(() => setValue(target));
-      return () => cancelAnimationFrame(frame);
-    }
-
-    const start = performance.now();
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - (1 - progress) ** 3;
-      setValue(Math.round(target * eased));
-      if (progress < 1) frame = requestAnimationFrame(tick);
-    };
-
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [active, target, duration]);
-
-  return value;
-}
-
 function StatIcon({ name }: { name: (typeof impactStats)[number]["icon"] }) {
   const common = {
     width: 22,
@@ -100,15 +69,45 @@ function StatItem({
   icon: (typeof impactStats)[number]["icon"];
   active: boolean;
 }) {
-  const display = useCountUp(value, active);
+  // The final value is rendered server-side; the count-up only rewrites the
+  // text once JS and motion preferences allow it.
+  const valueRef = useRef<HTMLParagraphElement>(null);
+  const duration = 1100;
+
+  useEffect(() => {
+    const el = valueRef.current;
+    if (!el || !active) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const final = `${value}${suffix}`;
+    let frame = 0;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - (1 - progress) ** 3;
+      el.textContent = `${Math.round(value * eased)}${suffix}`;
+      if (progress < 1) {
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    frame = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      el.textContent = final;
+    };
+  }, [active, value, suffix, duration]);
+
   return (
     <div className={styles.stat}>
       <span className={styles.iconWrap}>
         <StatIcon name={icon} />
       </span>
       <div className={styles.copy}>
-        <p className={styles.value}>
-          {display}
+        <p ref={valueRef} className={styles.value}>
+          {value}
           {suffix}
         </p>
         <p className={styles.label}>{label}</p>

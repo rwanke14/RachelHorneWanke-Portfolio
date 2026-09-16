@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
-import { work, type WorkCategory, type WorkItem } from "@/content/work";
+import { work, workGroups, type WorkCategory } from "@/content/work";
+import { CaseStudy } from "./CaseStudy";
+import { ProjectCard } from "./ProjectCard";
 import { Reveal } from "./Reveal";
 import styles from "./Work.module.css";
 
@@ -10,32 +11,27 @@ type Filter = "all" | WorkCategory;
 
 const filters: { id: Filter; label: string }[] = [
   { id: "all", label: "All work" },
-  { id: "production", label: "Production" },
-  { id: "client", label: "Client builds" },
-  { id: "builds", label: "Student projects" },
+  { id: "production", label: "Professional" },
+  { id: "client", label: "Freelance & client" },
+  { id: "builds", label: "Earlier projects" },
 ];
 
 export function Work({ showIntro = true }: { showIntro?: boolean }) {
   const [filter, setFilter] = useState<Filter>("all");
   const [openId, setOpenId] = useState<string | null>("centric");
 
-  const featured = useMemo(
+  const visibleGroups = useMemo(
     () =>
-      work.filter(
-        (item) =>
-          item.featured &&
-          (filter === "all" || item.category === filter),
-      ),
-    [filter],
-  );
-
-  const builds = useMemo(
-    () =>
-      work.filter(
-        (item) =>
-          !item.featured &&
-          (filter === "all" || item.category === filter),
-      ),
+      workGroups
+        .map((group) => ({
+          ...group,
+          items: work.filter(
+            (item) =>
+              item.category === group.id &&
+              (filter === "all" || item.category === filter),
+          ),
+        }))
+        .filter((group) => group.items.length > 0),
     [filter],
   );
 
@@ -50,9 +46,8 @@ export function Work({ showIntro = true }: { showIntro?: boolean }) {
           <Reveal>
             <h2 className="sectionTitle">Selected work</h2>
             <p className="sectionLead">
-              Case studies structured like peer portfolios — Overview, Scope,
-              and Impact — with CMS migrations called out. Expand a project to
-              dig in.
+              Case studies and projects — Overview, Scope, and Impact — with CMS
+              migrations called out. Expand a project to dig in.
             </p>
             <p className={styles.hint} aria-hidden="true">
               ↓ Filter · expand · explore accomplishments
@@ -69,7 +64,7 @@ export function Work({ showIntro = true }: { showIntro?: boolean }) {
         <Reveal>
           <div
             className={styles.filters}
-            role="tablist"
+            role="group"
             aria-label="Filter portfolio work"
           >
             {filters.map((item) => {
@@ -78,8 +73,7 @@ export function Work({ showIntro = true }: { showIntro?: boolean }) {
                 <button
                   key={item.id}
                   type="button"
-                  role="tab"
-                  aria-selected={active}
+                  aria-pressed={active}
                   className={`${styles.filterBtn} ${active ? styles.filterActive : ""}`}
                   onClick={() => setFilter(item.id)}
                 >
@@ -90,215 +84,50 @@ export function Work({ showIntro = true }: { showIntro?: boolean }) {
           </div>
         </Reveal>
 
-        {featured.length > 0 ? (
-          <div className={styles.featured}>
-            {featured.map((item, index) => {
-              const open = openId === item.id;
-              const panelId = `work-panel-${item.id}`;
-              const triggerId = `work-trigger-${item.id}`;
+        {visibleGroups.map((group) => {
+          const isBuilds = group.id === "builds";
+          return (
+            <section
+              key={group.id}
+              className={`${styles.group} ${isBuilds ? styles.groupMuted : ""}`}
+              aria-labelledby={`work-group-${group.id}`}
+            >
+              <Reveal>
+                <h2 id={`work-group-${group.id}`} className={styles.groupTitle}>
+                  {group.title}
+                </h2>
+                <p className={styles.groupLead}>{group.lead}</p>
+              </Reveal>
 
-              return (
-                <Reveal key={item.id} delay={index * 70}>
-                  <article
-                    className={`${styles.case} ${open ? styles.caseOpen : ""} ${item.migration ? styles.caseMigration : ""}`}
-                  >
-                    <button
-                      type="button"
-                      id={triggerId}
-                      className={styles.caseTrigger}
-                      aria-expanded={open}
-                      aria-controls={panelId}
-                      onClick={() => toggleCase(item.id)}
-                    >
-                      <div className={styles.caseVisual}>
-                        {item.cover ? (
-                          <div className={styles.cover}>
-                            <Image
-                              src={item.cover}
-                              alt={`${item.org} — ${item.title}`}
-                              fill
-                              sizes="144px"
-                              style={
-                                item.coverPosition
-                                  ? { objectPosition: item.coverPosition }
-                                  : undefined
-                              }
-                            />
-                          </div>
-                        ) : null}
-                        <div className={styles.caseCopy}>
-                          <div className={styles.meta}>
-                            <span className={styles.org}>{item.org}</span>
-                            <span>{item.role}</span>
-                            {item.migration ? (
-                              <span className={styles.migrationTag}>
-                                CMS migration
-                              </span>
-                            ) : null}
-                          </div>
-                          <h3 className={styles.title}>{item.title}</h3>
-                          <ul className={styles.metricPeek} aria-hidden={!open}>
-                            {item.metrics.slice(0, 3).map((metric) => (
-                              <li key={metric.label}>
-                                <strong>{metric.value}</strong>
-                                <span>{metric.label}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <p className={styles.prompt}>
-                            {open
-                              ? "Click to collapse"
-                              : (item.prompt ?? "Click to expand")}
-                          </p>
-                        </div>
-                      </div>
-                      <span className={styles.chevron} aria-hidden="true">
-                        <Chevron />
-                      </span>
-                    </button>
+              {isBuilds ? (
+                <div className={styles.builds}>
+                  {group.items.map((item, index) => (
+                    <Reveal key={item.id} delay={index * 80}>
+                      <ProjectCard item={item} />
+                    </Reveal>
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.featured}>
+                  {group.items.map((item, index) => (
+                    <Reveal key={item.id} delay={index * 70}>
+                      <CaseStudy
+                        item={item}
+                        open={openId === item.id}
+                        onToggle={toggleCase}
+                      />
+                    </Reveal>
+                  ))}
+                </div>
+              )}
+            </section>
+          );
+        })}
 
-                    <div
-                      id={panelId}
-                      role="region"
-                      aria-labelledby={triggerId}
-                      className={`${styles.panel} ${open ? styles.panelOpen : ""}`}
-                    >
-                      <div className={styles.panelInner}>
-                        <div className={styles.panelBody}>
-                          <div className={styles.storyGrid}>
-                            <div>
-                              <h4 className={styles.storyLabel}>Overview</h4>
-                              <p>{item.overview}</p>
-                            </div>
-                            <div>
-                              <h4 className={styles.storyLabel}>Scope</h4>
-                              <p>{item.scope}</p>
-                            </div>
-                            <div>
-                              <h4 className={styles.storyLabel}>Impact</h4>
-                              <p>{item.outcome}</p>
-                            </div>
-                          </div>
-
-                          <div className={styles.metricRow}>
-                            {item.metrics.map((metric) => (
-                              <div key={metric.label} className={styles.metricCard}>
-                                <p className={styles.metricValue}>
-                                  {metric.value}
-                                </p>
-                                <p className={styles.metricLabel}>
-                                  {metric.label}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-
-                          <ul
-                            className={styles.stack}
-                            aria-label="Technologies used"
-                          >
-                            {item.stack.map((tech) => (
-                              <li key={tech}>{tech}</li>
-                            ))}
-                          </ul>
-
-                          {item.href ? (
-                            <a
-                              className="btn btnOutline"
-                              href={item.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Visit live site
-                            </a>
-                          ) : null}
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
-        ) : null}
-
-        {builds.length > 0 ? (
-          <>
-            <Reveal>
-              <h3 className={styles.buildsTitle}>GitHub portfolio samples</h3>
-              <p className={styles.buildsLead}>
-                Student and side projects that show full-stack range. Live demos
-                are retired — open the repo to browse the codebase.
-              </p>
-            </Reveal>
-            <div className={styles.builds}>
-              {builds.map((item, index) => (
-                <Reveal key={item.id} delay={index * 80}>
-                  <BuildCard item={item} />
-                </Reveal>
-              ))}
-            </div>
-          </>
-        ) : null}
-
-        {featured.length === 0 && builds.length === 0 ? (
+        {visibleGroups.length === 0 ? (
           <p className={styles.empty}>No projects in this filter yet.</p>
         ) : null}
       </div>
     </section>
-  );
-}
-
-function BuildCard({ item }: { item: WorkItem }) {
-  return (
-    <article className={styles.build}>
-      {item.image ? (
-        <div className={styles.thumb}>
-          <Image
-            src={item.image}
-            alt={`${item.title} screenshot`}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
-        </div>
-      ) : null}
-      <div className={styles.buildBody}>
-        <p className={styles.buildMeta}>
-          {item.org} · {item.role}
-        </p>
-        <h4 className={styles.buildTitle}>{item.title}</h4>
-        <p className={styles.buildOutcome}>{item.overview}</p>
-        <ul className={styles.buildStack} aria-label="Technologies used">
-          {item.stack.slice(0, 4).map((tech) => (
-            <li key={tech}>{tech}</li>
-          ))}
-        </ul>
-        {item.href ? (
-          <a
-            className={styles.githubLink}
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {item.prompt ?? "View on GitHub"}
-            <span aria-hidden="true"> →</span>
-          </a>
-        ) : null}
-      </div>
-    </article>
-  );
-}
-
-function Chevron() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path
-        d="M3.5 5.75 8 10.25l4.5-4.5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

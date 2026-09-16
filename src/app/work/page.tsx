@@ -1,20 +1,19 @@
-import type { Metadata } from "next";
 import { PageBanner } from "@/components/PageBanner";
 import { Work } from "@/components/Work";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Work",
-  description:
-    "Selected work — CMS migrations, marketing site production, nonprofit redesigns, and client builds.",
-};
+export const metadata = pageMetadata(
+  "Work",
+  "Case studies and projects from CMS migrations, marketing site production, nonprofit modernization, freelance client builds, and technical SEO.",
+);
 
 export default function WorkPage() {
   return (
     <>
       <PageBanner
         eyebrow="Portfolio"
-        title="Selected work"
-        lead="Case studies from enterprise marketing sites, nonprofit modernization, and client builds — with CMS migrations called out."
+        title="Case studies & projects"
+        lead="Professional production work first, then freelance client builds, with earlier projects available below."
       />
       <Work showIntro={false} />
     </>

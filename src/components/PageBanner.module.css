@@ -6,6 +6,11 @@
   overflow: hidden;
 }
 
+/* The default purple focus ring is too dark to see on ink backgrounds. */
+.banner :focus-visible {
+  outline-color: var(--accent-bright);
+}
+
 .banner::after {
   content: "";
   position: absolute;
@@ -49,4 +54,15 @@
   font-size: 1.05rem;
   max-width: 36rem;
   line-height: 1.65;
+}
+
+.titleWide {
+  max-width: 22ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
 }

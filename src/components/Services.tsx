@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { services } from "@/content/site";
+import { services, technicalCapabilities } from "@/content/site";
 import { Reveal } from "./Reveal";
 import styles from "./Services.module.css";
 
@@ -13,12 +13,20 @@ export function Services({ showCta = true }: ServicesProps) {
     <section id="services" className={`section ${styles.section}`}>
       <div className="container">
         <Reveal>
-          <h2 className="sectionTitle">What I offer companies</h2>
+          <h2 className="sectionTitle">Larger technical projects</h2>
           <p className="sectionLead">
-            Contract and freelance support for teams that need production
-            engineering, CMS work, and technical SEO — without standing up a
-            full in-house web org.
+            Bigger engagements drawn from the same work in my portfolio —
+            platform moves, production builds, and the technical groundwork
+            underneath them.
           </p>
+          <ul
+            className={styles.capabilities}
+            aria-label="Technical capabilities"
+          >
+            {technicalCapabilities.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </Reveal>
 
         <div className={styles.list}>
@@ -60,7 +68,7 @@ export function Services({ showCta = true }: ServicesProps) {
                   Start a conversation
                 </Link>
                 <Link className="btn btnOutline" href="/work">
-                  See selected work
+                  See case studies
                 </Link>
               </div>
             </div>

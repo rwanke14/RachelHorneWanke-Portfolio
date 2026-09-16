@@ -30,13 +30,6 @@
   color: inherit;
 }
 
-.number {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-}
-
 .title {
   font-family: var(--font-display);
   font-size: 1.15rem;

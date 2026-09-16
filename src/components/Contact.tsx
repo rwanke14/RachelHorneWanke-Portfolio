@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { site } from "@/content/site";
+import { inquiryBudgets, inquiryTopics, site } from "@/content/site";
 import { Reveal } from "./Reveal";
 import styles from "./Contact.module.css";
 
@@ -20,10 +20,13 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
     if (!formspreeId) {
       const name = String(data.get("name") || "");
       const email = String(data.get("email") || "");
+      const company = String(data.get("company") || "");
+      const topic = String(data.get("topic") || "");
+      const budget = String(data.get("budget") || "");
       const message = String(data.get("message") || "");
       const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
       const body = encodeURIComponent(
-        `${message}\n\n— ${name}\n${email}`,
+        `${message}\n\nCompany / Organization: ${company}\nWhat I can help with: ${topic}\nApproximate project budget: ${budget}\n\n— ${name}\n${email}`,
       );
       window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
       return;
@@ -51,9 +54,9 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
           <Reveal>
             <h2 className="sectionTitle">Contact</h2>
             <p className="sectionLead">
-              Actively seeking full-time web production roles and freelance /
-              contract engagements — web development, CMS migrations, WordPress
-              & Contentful management, and technical SEO.
+              Full-time web platform and digital experience roles, plus
+              freelance and contract projects — web development, CMS work,
+              technical SEO, and website support.
             </p>
           </Reveal>
         ) : null}
@@ -126,13 +129,49 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
                 />
               </div>
               <div className={styles.field}>
-                <label htmlFor="message">Message</label>
+                <label htmlFor="company">Company / Organization</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  autoComplete="organization"
+                  placeholder="Optional"
+                />
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="topic">What can I help with?</label>
+                <select id="topic" name="topic" required defaultValue="">
+                  <option value="" disabled>
+                    Select an option
+                  </option>
+                  {inquiryTopics.map((topic) => (
+                    <option key={topic} value={topic}>
+                      {topic}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="budget">Approximate project budget</label>
+                <select id="budget" name="budget" required defaultValue="">
+                  <option value="" disabled>
+                    Select an option
+                  </option>
+                  {inquiryBudgets.map((budget) => (
+                    <option key={budget} value={budget}>
+                      {budget}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="message">Tell me about what you need.</label>
                 <textarea
                   id="message"
                   name="message"
                   required
                   rows={5}
-                  placeholder="Tell me about the role or project"
+                  placeholder="Role details, site URL, timeline, or the problem you’re seeing"
                 />
               </div>
               <button
@@ -140,7 +179,7 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
                 type="submit"
                 disabled={status === "sending"}
               >
-                {status === "sending" ? "Sending…" : "Send message"}
+                {status === "sending" ? "Sending…" : "Send Inquiry"}
               </button>
               {status === "success" ? (
                 <p className={styles.status} role="status">

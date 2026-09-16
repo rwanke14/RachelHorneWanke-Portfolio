@@ -6,6 +6,11 @@
   font-size: 0.9rem;
 }
 
+/* The default purple focus ring is too dark to see on ink backgrounds. */
+.footer :focus-visible {
+  outline-color: var(--accent-bright);
+}
+
 .inner {
   width: min(100% - 2.5rem, var(--max));
   margin-inline: auto;

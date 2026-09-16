@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
 import { About } from "@/components/About";
 import { Experience } from "@/components/Experience";
 import { PageBanner } from "@/components/PageBanner";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "About Rachel Wanke — website specialist and web producer with experience in CMS migrations, SEO, and marketing site production.",
-};
+export const metadata = pageMetadata(
+  "About",
+  "About Rachel Wanke — website specialist and web producer experienced in CMS migrations, technical SEO, and marketing site production. Open to senior roles and select freelance projects.",
+);
 
 export default function AboutPage() {
   return (

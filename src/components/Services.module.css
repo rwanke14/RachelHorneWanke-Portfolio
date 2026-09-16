@@ -3,6 +3,23 @@
   position: relative;
 }
 
+.capabilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: -1.25rem 0 2.25rem;
+}
+
+.capabilities li {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  background: var(--accent-dim);
+  color: var(--ink-soft);
+  border-radius: var(--radius);
+}
+
 .list {
   display: grid;
   gap: 1.15rem;

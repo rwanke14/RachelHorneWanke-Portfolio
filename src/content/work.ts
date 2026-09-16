@@ -5,6 +5,11 @@ export type WorkMetric = {
   value: string;
 };
 
+export type WorkStorySection = {
+  label: string;
+  body: string;
+};
+
 export type WorkItem = {
   id: string;
   title: string;
@@ -13,6 +18,8 @@ export type WorkItem = {
   overview: string;
   scope: string;
   outcome: string;
+  /** Optional Challenge / Approach / Outcome (or similar) labels. */
+  story?: WorkStorySection[];
   stack: string[];
   metrics: WorkMetric[];
   featured: boolean;
@@ -25,6 +32,28 @@ export type WorkItem = {
   href?: string;
   prompt?: string;
 };
+
+export const workGroups: {
+  id: WorkCategory;
+  title: string;
+  lead: string;
+}[] = [
+  {
+    id: "production",
+    title: "Featured / Professional Work",
+    lead: "Case studies from enterprise marketing sites and nonprofit modernization.",
+  },
+  {
+    id: "client",
+    title: "Freelance & Client Work",
+    lead: "Independent builds and client delivery — more projects will land here over time.",
+  },
+  {
+    id: "builds",
+    title: "Additional / Earlier Projects",
+    lead: "Student and side projects that show full-stack range. Live demos are retired — open a repo to browse the codebase.",
+  },
+];
 
 export const work: WorkItem[] = [
   {
@@ -107,6 +136,51 @@ export const work: WorkItem[] = [
     prompt: "Open the production details",
   },
   {
+    id: "technical-seo",
+    title: "Technical & Global SEO",
+    org: "Centric Software · CircleCI · N.S.C.A.R.",
+    role: "Technical SEO across engagements",
+    overview:
+      "Technical SEO and localization hygiene across large marketing and nonprofit sites — audits, broken-link work, redirects, metadata, and measurement layered onto CMS and production delivery.",
+    scope:
+      "Technical audits, 404 and backlink remediation, redirects, metadata, multilingual/hreflang complexity, GTM instrumentation, and coordination with development and content teams.",
+    outcome:
+      "Localized experiences stayed healthy across 12+ languages on the Centric marketing site, CircleCI’s live site gained cleaner technical SEO hygiene around 404s and production fixes, and N.S.C.A.R.’s public site received ongoing SEO improvements as part of the national redesign.",
+    story: [
+      {
+        label: "Challenge",
+        body: "Large, multilingual websites create technical SEO problems at scale, including broken links, redirect chains, localization/hreflang complexity, indexing issues, and inconsistent technical implementation.",
+      },
+      {
+        label: "Approach",
+        body: "Work spanned technical audits and remediation roadmaps, broken-link and 404 cleanup, redirects, metadata, GTM/analytics instrumentation, and multilingual site health — coordinating with developers, content owners, and web production so fixes actually shipped.",
+      },
+      {
+        label: "Outcome",
+        // TODO: Replace qualitative outcome with verified metrics when available
+        // (crawl-error counts, index coverage, redirect-chain reductions, or
+        // traffic/visibility lifts). Do not invent numbers.
+        body: "International marketing pages stayed live and localized through a CMS migration, live-site SEO hygiene improved through 404 and production remediation, and a national nonprofit site gained a clearer discoverability focus as part of its redesign.",
+      },
+    ],
+    stack: [
+      "Technical SEO",
+      "GTM",
+      "Contentful",
+      "WordPress",
+      "Next.js",
+      "Localization",
+    ],
+    metrics: [
+      { value: "12+", label: "Locales supported" },
+      { value: "404s", label: "Remediation focus" },
+      { value: "GTM", label: "Measurement layer" },
+    ],
+    featured: true,
+    category: "production",
+    prompt: "Read the SEO case study",
+  },
+  {
     id: "wedding",
     title: "Sister’s wedding website",
     org: "Client build · Family",
@@ -123,7 +197,7 @@ export const work: WorkItem[] = [
       { value: "Mobile-first", label: "Guest experience" },
       { value: "Full delivery", label: "Brief → launch" },
     ],
-    featured: true,
+    featured: false,
     category: "client",
     cover: "/images/case-wedding.jpg",
     coverPosition: "center 45%",

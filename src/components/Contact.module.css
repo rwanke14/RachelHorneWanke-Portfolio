@@ -3,6 +3,11 @@
   color: var(--text-on-ink);
 }
 
+/* The default purple focus ring is too dark to see on ink backgrounds. */
+.section :focus-visible {
+  outline-color: var(--accent-bright);
+}
+
 .section :global(.sectionTitle) {
   color: var(--text-on-ink);
 }
@@ -57,7 +62,8 @@
 }
 
 .field input,
-.field textarea {
+.field textarea,
+.field select {
   width: 100%;
   padding: 0.85rem 0.95rem;
   border: 1px solid var(--border-ink);
@@ -67,14 +73,29 @@
   font: inherit;
 }
 
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c4b5fd' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.4rem;
+}
+
+/* Native option lists don't inherit the dark field styling reliably. */
+.field select option {
+  color: #1a0f2e;
+  background-color: #fff;
+}
+
 .field input::placeholder,
 .field textarea::placeholder {
   color: var(--text-on-ink-muted);
 }
 
 .field input:focus,
-.field textarea:focus {
-  outline: 2px solid var(--teal);
+.field textarea:focus,
+.field select:focus {
+  outline: 2px solid var(--teal-bright);
   outline-offset: 1px;
   border-color: transparent;
 }

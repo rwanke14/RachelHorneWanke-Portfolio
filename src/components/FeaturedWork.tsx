@@ -5,7 +5,9 @@ import { Reveal } from "./Reveal";
 import styles from "./FeaturedWork.module.css";
 
 export function FeaturedWork() {
-  const featured = work.filter((item) => item.featured).slice(0, 3);
+  const featured = work
+    .filter((item) => item.featured && item.category === "production")
+    .slice(0, 3);
 
   return (
     <section id="explore" className={`section ${styles.section}`}>
@@ -13,8 +15,8 @@ export function FeaturedWork() {
         <Reveal>
           <h2 className="sectionTitle">Featured work</h2>
           <p className="sectionLead">
-            Recent production outcomes — migrations, marketing sites, and
-            client builds. Click through for the full case stories.
+            Case studies from enterprise marketing sites and nonprofit
+            modernization. Open the work page for the full stories.
           </p>
         </Reveal>
 
@@ -56,7 +58,7 @@ export function FeaturedWork() {
               See all work
             </Link>
             <Link className="btn btnOutline" href="/services">
-              Website Services and Support
+              Hire me for a project
             </Link>
           </div>
         </Reveal>

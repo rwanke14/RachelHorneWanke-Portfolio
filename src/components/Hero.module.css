@@ -8,6 +8,11 @@
   color: var(--text-on-ink);
 }
 
+/* The default purple focus ring is too dark to see on ink backgrounds. */
+.hero :focus-visible {
+  outline-color: var(--accent-bright);
+}
+
 .media {
   position: absolute;
   inset: 0;
@@ -97,15 +102,12 @@
   width: min(100% - 2.5rem, var(--max));
   margin-inline: auto;
   padding-block: clamp(4rem, 12vh, 7rem) clamp(3.5rem, 8vh, 5.5rem);
-  max-width: 40rem;
+  max-width: 44rem;
   margin-left: max(1.25rem, calc((100% - var(--max)) / 2));
 }
 
-.availability {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.8rem;
+.eyebrow {
+  font-size: 0.86rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -113,6 +115,21 @@
   margin-bottom: 1rem;
   opacity: 0;
   animation: rise 0.9s var(--ease) 0.05s forwards;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--text-on-ink-muted);
+  margin-top: 1.15rem;
+  margin-bottom: 0;
+  opacity: 0;
+  animation: rise 0.9s var(--ease) 0.7s forwards;
 }
 
 .availability::before {
@@ -148,22 +165,22 @@
   animation: rise 0.9s var(--ease) 0.1s forwards;
 }
 
-.tagline {
-  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
-  font-weight: 500;
-  color: var(--accent-bright);
-  margin-bottom: 0.85rem;
-  opacity: 0;
-  animation: rise 0.9s var(--ease) 0.25s forwards;
-}
-
 .summary {
   max-width: 34rem;
   color: #f7f3fb;
   font-size: 1.05rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.85rem;
   opacity: 0;
   animation: rise 0.9s var(--ease) 0.4s forwards;
+}
+
+.positioning {
+  max-width: 34rem;
+  color: var(--text-on-ink-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: rise 0.9s var(--ease) 0.48s forwards;
 }
 
 .actions {
@@ -174,21 +191,6 @@
   animation: rise 0.9s var(--ease) 0.55s forwards;
 }
 
-.secondaryLink {
-  display: inline-block;
-  margin-top: 1.15rem;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--text-on-ink-muted);
-  text-decoration: none;
-  opacity: 0;
-  animation: rise 0.9s var(--ease) 0.7s forwards;
-  transition: color 0.2s var(--ease);
-}
-
-.secondaryLink:hover {
-  color: var(--accent-bright);
-}
 
 @keyframes rise {
   from {
@@ -218,12 +220,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .eyebrow,
   .availability,
   .brand,
-  .tagline,
   .summary,
-  .actions,
-  .secondaryLink {
+  .positioning,
+  .actions {
     opacity: 1;
     animation: none;
   }
