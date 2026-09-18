@@ -1,11 +1,50 @@
 "use client";
 
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormEvent, useState } from "react";
 import { inquiryBudgets, inquiryTopics, site } from "@/content/site";
 import { Reveal } from "./Reveal";
 import styles from "./Contact.module.css";
 
 const formName = "contact";
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.location)}`;
+
+const channels = [
+  {
+    id: "email",
+    href: `mailto:${site.email}`,
+    icon: faEnvelope,
+    label: "Email",
+    text: site.email,
+    external: false,
+  },
+  {
+    id: "linkedin",
+    href: site.links.linkedin,
+    icon: faLinkedin,
+    label: "LinkedIn",
+    text: "linkedin.com/in/rachel-wanke",
+    external: true,
+  },
+  {
+    id: "github",
+    href: site.links.github,
+    icon: faGithub,
+    label: "GitHub",
+    text: "github.com/rwanke14",
+    external: true,
+  },
+  {
+    id: "location",
+    href: mapsHref,
+    icon: faLocationDot,
+    label: "Location",
+    text: site.location,
+    external: true,
+  },
+];
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -59,35 +98,28 @@ export function Contact({ showIntro = true }: { showIntro?: boolean }) {
 
         <div className={styles.grid}>
           <Reveal>
-            <ul className={styles.channels}>
-              <li>
-                <span className={styles.label}>Email</span>
-                <a href={`mailto:${site.email}`}>{site.email}</a>
-              </li>
-              <li>
-                <span className={styles.label}>LinkedIn</span>
-                <a
-                  href={site.links.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  linkedin.com/in/rachel-wanke
-                </a>
-              </li>
-              <li>
-                <span className={styles.label}>GitHub</span>
-                <a
-                  href={site.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  github.com/rwanke14
-                </a>
-              </li>
-              <li>
-                <span className={styles.label}>Location</span>
-                <span>{site.location}</span>
-              </li>
+            <ul className={styles.channels} aria-label="Contact links">
+              {channels.map((channel) => (
+                <li key={channel.id}>
+                  <a
+                    className={styles.channelLink}
+                    href={channel.href}
+                    {...(channel.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    <FontAwesomeIcon
+                      icon={channel.icon}
+                      className={styles.icon}
+                      aria-hidden
+                    />
+                    <span className={styles.detail}>
+                      <span className={styles.label}>{channel.label}</span>
+                      <span className={styles.channelText}>{channel.text}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </Reveal>
 

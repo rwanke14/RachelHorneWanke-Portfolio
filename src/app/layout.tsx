@@ -1,9 +1,13 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import type { Metadata } from "next";
 import { Figtree, Newsreader } from "next/font/google";
 import { site } from "@/content/site";
 import "./globals.css";
+
+config.autoAddCss = false;
 
 const display = Newsreader({
   subsets: ["latin"],
